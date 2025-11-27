@@ -37,6 +37,14 @@ def main():
     if not run_command("python manage.py migrate", "Running database migrations"):
         sys.exit(1)
 
+    # Run tests
+    run_tests = input("\n🤔 Do you want to run the test suite? (y/n): ").lower().strip()
+    if run_tests == 'y':
+        if not run_command("python manage.py test", "Running test suite"):
+            print("⚠️  Some tests failed. Please check the output above.")
+        else:
+            print("✅ All tests passed!")
+
     # Create superuser (optional)
     create_superuser = input("\n🤔 Do you want to create a Django superuser for admin access? (y/n): ").lower().strip()
     if create_superuser == 'y':

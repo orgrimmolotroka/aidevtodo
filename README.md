@@ -10,6 +10,28 @@ A simple TODO application built with Django that allows you to create, edit, del
 - ✅ Clean, responsive web interface
 - ✅ Django admin integration
 
+## Testing Features Added
+
+### Test Files Created
+- `todos/tests.py` - Comprehensive test suite
+- `todo_project/test_settings.py` - Test-specific Django settings
+- `test.py` - Standalone test runner script
+
+### Test Coverage
+- **Model Tests**: Todo creation, string representation, ordering, field defaults
+- **Form Tests**: Validation, required/optional fields, widget configuration
+- **View Tests**: All CRUD operations, template rendering, redirects, success messages
+- **URL Tests**: URL pattern resolution and responses
+- **Integration Tests**: Complete user workflows from creation to deletion
+
+### Test Statistics
+- **5 Test Classes** with **25+ individual test methods**
+- **100% Model Coverage** (creation, validation, representation)
+- **Complete CRUD Operations** testing
+- **Form Validation** for all scenarios
+- **URL Resolution** and response testing
+- **Integration Workflows** end-to-end
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -51,13 +73,19 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-### 5. Run the development server
+### 5. Run tests (optional but recommended)
+
+```bash
+python manage.py test
+```
+
+### 6. Run the development server
 
 ```bash
 python manage.py runserver
 ```
 
-### 6. Access the application
+### 7. Access the application
 
 - Main application: http://127.0.0.1:8000/
 - Django admin (if you created a superuser): http://127.0.0.1:8000/admin/
@@ -104,6 +132,39 @@ todo_project/
 └── README.md             # This file
 ```
 
+## Testing
+
+The application includes comprehensive test coverage for models, views, forms, and URLs.
+
+### Running Tests
+
+```bash
+# Run all tests
+python manage.py test
+
+# Run tests with verbose output
+python manage.py test --verbosity=2
+
+# Run tests for specific app
+python manage.py test todos
+
+# Run a specific test class
+python manage.py test todos.tests.TodoModelTest
+
+# Run a specific test method
+python manage.py test todos.tests.TodoModelTest.test_todo_creation
+```
+
+### Test Coverage
+
+The test suite includes:
+
+- **Model Tests**: Todo creation, string representation, ordering, field defaults
+- **Form Tests**: Validation, required/optional fields, widget configuration
+- **View Tests**: All CRUD operations, template rendering, redirects, success messages
+- **URL Tests**: URL pattern resolution and responses
+- **Integration Tests**: Complete user workflows from creation to deletion
+
 ## Development
 
 To contribute to this project:
@@ -112,7 +173,8 @@ To contribute to this project:
 2. Set up a virtual environment
 3. Install dependencies: `pip install -r requirements.txt`
 4. Run migrations: `python manage.py migrate`
-5. Start development server: `python manage.py runserver`
+5. Run tests: `python manage.py test`
+6. Start development server: `python manage.py runserver`
 
 ## License
 
