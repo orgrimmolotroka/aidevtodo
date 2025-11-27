@@ -1,0 +1,49 @@
+{% extends 'todos/base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Todo{% else %}Create Todo{% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Edit Todo{% else %}Create New Todo{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label for="{{ form.title.id_for_label }}" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div style="color: #dc3545; font-size: 14px;">{{ form.title.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="{{ form.description.id_for_label }}" style="display: block; margin-bottom: 5px; font-weight: bold;">Description:</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div style="color: #dc3545; font-size: 14px;">{{ form.description.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="{{ form.due_date.id_for_label }}" style="display: block; margin-bottom: 5px; font-weight: bold;">Due Date (optional):</label>
+            {{ form.due_date }}
+            {% if form.due_date.errors %}
+                <div style="color: #dc3545; font-size: 14px;">{{ form.due_date.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: flex; align-items: center;">
+                {{ form.completed }}
+                <span style="margin-left: 5px;">Mark as completed</span>
+            </label>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update Todo{% else %}Create Todo{% endif %}</button>
+            <a href="{% url 'todo_list' %}" class="btn btn-secondary" style="margin-left: 10px;">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

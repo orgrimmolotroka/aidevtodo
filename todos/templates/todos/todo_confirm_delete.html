@@ -1,0 +1,26 @@
+{% extends 'todos/base.html' %}
+
+{% block title %}Delete Todo{% endblock %}
+
+{% block content %}
+    <h1>Delete Todo</h1>
+
+    <p>Are you sure you want to delete the todo "<strong>{{ object.title }}</strong>"?</p>
+
+    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+        <h4>{{ object.title }}</h4>
+        {% if object.description %}
+            <p>{{ object.description }}</p>
+        {% endif %}
+        {% if object.due_date %}
+            <p><strong>Due:</strong> {{ object.due_date|date:"M d, Y H:i" }}</p>
+        {% endif %}
+        <p><strong>Status:</strong> {% if object.completed %}Completed{% else %}Incomplete{% endif %}</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'todo_list' %}" class="btn btn-secondary" style="margin-left: 10px;">Cancel</a>
+    </form>
+{% endblock %}

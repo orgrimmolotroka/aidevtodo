@@ -1,0 +1,46 @@
+{% extends 'todos/base.html' %}
+
+{% block title %}My TODOs{% endblock %}
+
+{% block content %}
+    <h1>My TODOs</h1>
+
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'todo_create' %}" class="btn btn-primary">Add New Todo</a>
+    </div>
+
+    {% if todos %}
+        <div class="todo-list">
+            {% for todo in todos %}
+                <div class="todo-item" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 4px; {% if todo.completed %}background-color: #f8f9fa;{% endif %}">
+                    <div class="todo-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="{% if todo.completed %}text-decoration: line-through; color: #6c757d;{% endif %}">{{ todo.title }}</h3>
+                        <div>
+                            <a href="{% url 'todo_toggle' todo.pk %}" class="btn {% if todo.completed %}btn-warning{% else %}btn-success{% endif %}" style="margin-right: 5px;">
+                                {% if todo.completed %}Mark Incomplete{% else %}Mark Complete{% endif %}
+                            </a>
+                            <a href="{% url 'todo_update' todo.pk %}" class="btn btn-secondary" style="margin-right: 5px;">Edit</a>
+                            <a href="{% url 'todo_delete' todo.pk %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+
+                    {% if todo.description %}
+                        <p style="margin-bottom: 10px; color: #666;">{{ todo.description }}</p>
+                    {% endif %}
+
+                    <div class="todo-meta" style="font-size: 12px; color: #888;">
+                        {% if todo.due_date %}
+                            <span>Due: {{ todo.due_date|date:"M d, Y H:i" }}</span>
+                        {% endif %}
+                        <span>Created: {{ todo.created_at|date:"M d, Y H:i" }}</span>
+                        {% if todo.completed %}
+                            <span style="color: #28a745; font-weight: bold;">✓ Completed</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; color: #666; font-style: italic;">No todos yet. <a href="{% url 'todo_create' %}">Create your first todo!</a></p>
+    {% endif %}
+{% endblock %}
